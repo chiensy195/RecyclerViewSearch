@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -168,6 +169,15 @@ public class MainActivity extends AppCompatActivity implements ContactsAdapter.C
 
     @Override
     public void onContactSelected(Contact contact) {
-        Toast.makeText(getApplicationContext(), "Selected: " + contact.getName() + ", " + contact.getPhone(), Toast.LENGTH_LONG).show();
+        final Toast message = Toast.makeText(getApplicationContext(), "Selected: " + contact.getName()
+                + ", " + contact.getPhone(), Toast.LENGTH_LONG);
+        message.show();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable(){
+            @Override public void run(){
+                message.cancel();
+            }
+        },800);
+
     }
 }
